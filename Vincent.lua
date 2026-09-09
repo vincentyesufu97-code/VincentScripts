@@ -103,16 +103,25 @@ featuresBtn.MouseButton1Click:Connect(function()
 end)
 
 -- TITOLO PAGINA
-local title = Instance.new("TextLabel", page)
-title.Size = UDim2.new(1, 0, 0, 45)
-title.Position = UDim2.new(0, 0, 0, 0)
-title.Text = "Features"
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.Font = Enum.Font.GothamBold
-title.TextSize = 22
-title.BackgroundTransparency = 1
+local titleMain = Instance.new("TextLabel", page)
+titleMain.Size = UDim2.new(1, 0, 0, 40)
+titleMain.Position = UDim2.new(0, 0, 0, 0)
+titleMain.Text = "Vincent Hub"
+titleMain.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleMain.Font = Enum.Font.GothamBold
+titleMain.TextSize = 22
+titleMain.BackgroundTransparency = 1
 
--- FUNZIONE PER CREARE INPUT + SWITCH
+local titleSub = Instance.new("TextLabel", page)
+titleSub.Size = UDim2.new(1, 0, 0, 30)
+titleSub.Position = UDim2.new(0, 0, 0, 35)
+titleSub.Text = "Features"
+titleSub.TextColor3 = Color3.fromRGB(200, 200, 200)
+titleSub.Font = Enum.Font.Gotham
+titleSub.TextSize = 18
+titleSub.BackgroundTransparency = 1
+
+-- FUNZIONE INPUT + TOGGLE (textbar in mezzo)
 local function makeInputToggle(name, posY)
     local frame = Instance.new("Frame", page)
     frame.Size = UDim2.new(1, -20, 0, 50)
@@ -120,7 +129,7 @@ local function makeInputToggle(name, posY)
     frame.BackgroundTransparency = 1
 
     local label = Instance.new("TextLabel", frame)
-    label.Size = UDim2.new(0.4, 0, 1, 0)
+    label.Size = UDim2.new(0.3, 0, 1, 0)
     label.Text = name .. ":"
     label.TextColor3 = Color3.fromRGB(255, 255, 255)
     label.Font = Enum.Font.GothamBold
@@ -128,8 +137,8 @@ local function makeInputToggle(name, posY)
     label.BackgroundTransparency = 1
 
     local box = Instance.new("TextBox", frame)
-    box.Size = UDim2.new(0.3, 0, 1, 0)
-    box.Position = UDim2.new(0.4, 0, 0, 0)
+    box.Size = UDim2.new(0.4, 0, 1, 0)
+    box.Position = UDim2.new(0.3, 0, 0, 0)
     box.PlaceholderText = "0 - 1000"
     box.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     box.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -155,7 +164,7 @@ end
 ---------------------------------------------------------
 
 -- SPEED
-local speedBox, speedToggle = makeInputToggle("Speed", 60)
+local speedBox, speedToggle = makeInputToggle("Speed", 80)
 local speedOn = false
 
 speedToggle.MouseButton1Click:Connect(function()
@@ -178,7 +187,7 @@ speedBox.FocusLost:Connect(function()
 end)
 
 -- JUMP
-local jumpBox, jumpToggle = makeInputToggle("Jump", 120)
+local jumpBox, jumpToggle = makeInputToggle("Jump", 140)
 local jumpOn = false
 
 jumpToggle.MouseButton1Click:Connect(function()
@@ -201,7 +210,7 @@ jumpBox.FocusLost:Connect(function()
 end)
 
 -- NOCLIP
-local noclipToggle = makeInputToggle("Noclip", 180)
+local noclipBox, noclipToggle = makeInputToggle("Noclip", 200)
 local noclipOn = false
 
 noclipToggle.MouseButton1Click:Connect(function()
@@ -218,7 +227,7 @@ game:GetService("RunService").Stepped:Connect(function()
 end)
 
 -- ESP PLAYER
-local espToggle = makeInputToggle("ESP Player", 240)
+local espBox, espToggle = makeInputToggle("ESP Player", 260)
 local espOn = false
 
 espToggle.MouseButton1Click:Connect(function()
@@ -254,7 +263,7 @@ espToggle.MouseButton1Click:Connect(function()
 end)
 
 -- ANTI AFK
-local afkToggle = makeInputToggle("Anti-AFK", 300)
+local afkBox, afkToggle = makeInputToggle("Anti-AFK", 320)
 local afkOn = false
 local vu = game:GetService("VirtualUser")
 
