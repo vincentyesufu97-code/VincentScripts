@@ -46,9 +46,67 @@ mini.MouseButton1Click:Connect(function()
     main.Visible = not main.Visible
 end)
 
+-- BARRA SUPERIORE CON "-" E "X"
+local topBar = Instance.new("Frame", main)
+topBar.Size = UDim2.new(1, 0, 0, 40)
+topBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Instance.new("UICorner", topBar).CornerRadius = UDim.new(0, 12)
+
+local topBarStroke = Instance.new("UIStroke", topBar)
+topBarStroke.Color = Color3.fromRGB(255, 255, 255)
+topBarStroke.Thickness = 2
+
+local title = Instance.new("TextLabel", topBar)
+title.Size = UDim2.new(0.7, 0, 1, 0)
+title.Position = UDim2.new(0, 10, 0, 0)
+title.Text = "Vincent Hub"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 20
+title.BackgroundTransparency = 1
+
+-- PULSANTE "-"
+local minimize = Instance.new("TextButton", topBar)
+minimize.Size = UDim2.new(0, 40, 0, 40)
+minimize.Position = UDim2.new(0.78, 0, 0, 0)
+minimize.Text = "-"
+minimize.TextColor3 = Color3.fromRGB(255, 255, 255)
+minimize.Font = Enum.Font.GothamBold
+minimize.TextSize = 28
+minimize.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Instance.new("UICorner", minimize).CornerRadius = UDim.new(0, 10)
+
+-- PULSANTE "X" (SOLO ESTETICO)
+local closeBtn = Instance.new("TextButton", topBar)
+closeBtn.Size = UDim2.new(0, 40, 0, 40)
+closeBtn.Position = UDim2.new(0.88, 0, 0, 0)
+closeBtn.Text = "X"
+closeBtn.TextColor3 = Color3.fromRGB(255, 80, 80)
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 28
+closeBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 10)
+
+-- MINIMIZZA IL MENU (COMPATTA IN UNA RIGA)
+local minimized = false
+minimize.MouseButton1Click:Connect(function()
+    minimized = not minimized
+    if minimized then
+        main.Size = UDim2.new(0, 500, 0, 40)
+    else
+        main.Size = UDim2.new(0, 500, 0, 400)
+    end
+end)
+
+-- CHIUSURA ESTETICA (NASCONDE SOLO IL MENU)
+closeBtn.MouseButton1Click:Connect(function()
+    main.Visible = false
+end)
+
 -- SIDEBAR SINISTRA
 local sidebar = Instance.new("Frame", main)
-sidebar.Size = UDim2.new(0, 140, 1, 0)
+sidebar.Size = UDim2.new(0, 140, 1, -40)
+sidebar.Position = UDim2.new(0, 0, 0, 40)
 sidebar.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 Instance.new("UICorner", sidebar).CornerRadius = UDim.new(0, 12)
 
@@ -66,7 +124,6 @@ hubTitle.Font = Enum.Font.GothamBold
 hubTitle.TextSize = 20
 hubTitle.BackgroundTransparency = 1
 
--- SOTTO TITOLO
 local hubSub = Instance.new("TextLabel", sidebar)
 hubSub.Size = UDim2.new(1, 0, 0, 30)
 hubSub.Position = UDim2.new(0, 0, 0, 45)
@@ -89,8 +146,8 @@ Instance.new("UICorner", featuresBtn).CornerRadius = UDim.new(0, 10)
 
 -- PAGINA FEATURES
 local page = Instance.new("Frame", main)
-page.Size = UDim2.new(1, -140, 1, 0)
-page.Position = UDim2.new(0, 140, 0, 0)
+page.Size = UDim2.new(1, -140, 1, -40)
+page.Position = UDim2.new(0, 140, 0, 40)
 page.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
 Instance.new("UICorner", page).CornerRadius = UDim.new(0, 12)
 
@@ -277,5 +334,54 @@ player.Idled:Connect(function()
         vu:Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
         task.wait(1)
         vu:Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+    end
+end)
+
+---------------------------------------------------------
+-- AUTO-REAPPLY FEATURES DOPO RESPAWN
+---------------------------------------------------------
+
+player.CharacterAdded:Connect(function(newChar)
+    char = newChar
+    hum = newChar:WaitForChild("Humanoid")
+
+    if speedOn then
+        local val = tonumber(speedBox.Text)
+        if val and val <= 1000 then hum.WalkSpeed = val end
+    end
+
+    if jumpOn then
+        local val = tonumber(jumpBox.Text)
+        if val and val <= 1000 then hum.JumpPower = val end
+    end
+
+    if noclipOn then
+        task.wait(0.2)
+        for _, v in pairs(char:GetDescendants()) do
+            if v:IsA("BasePart") then v.CanCollide = false end
+        end
+    end
+
+    if espOn then
+        for _, plr in pairs(game.Players:GetPlayers()) do
+            if plr ~= player and plr.Character then
+                local h = Instance.new("Highlight", plr.Character)
+                h.FillColor = Color3.fromRGB(0, 140, 255)
+                h.OutlineColor = Color3.fromRGB(255, 255, 255)
+
+                local nameTag = Instance.new("BillboardGui", plr.Character)
+                nameTag.Size = UDim2.new(0, 100, 0, 30)
+                nameTag.Adornee = plr.Character:FindFirstChild("Head")
+                nameTag.AlwaysOnTop = true
+
+                local txt = Instance.new("TextLabel", nameTag)
+                txt.Size = UDim2.new(1, 0, 1, 0)
+                txt.BackgroundTransparency = 1
+                txt.Text = plr.Name
+                txt.TextColor3 = Color3.fromRGB(0, 140, 255)
+                txt.Font = Enum.Font.GothamBold
+                txt.TextSize = 18
+            end
+        end
     end
 end)
