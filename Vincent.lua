@@ -28,9 +28,11 @@ local miniGlow = Instance.new("UIStroke", mini)
 miniGlow.Color = Color3.fromRGB(255, 255, 255)
 miniGlow.Thickness = 2
 
--- MENU PRINCIPALE
+--------------------------------------------------------------------
+-- MENU PRINCIPALE RIDOTTO
+--------------------------------------------------------------------
 local main = Instance.new("Frame", gui)
-main.Size = UDim2.new(0, 500, 0, 400)
+main.Size = UDim2.new(0, 300, 0, 250)
 main.Position = UDim2.new(0, 90, 0, 100)
 main.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 main.Visible = false
@@ -46,67 +48,63 @@ mini.MouseButton1Click:Connect(function()
     main.Visible = not main.Visible
 end)
 
--- BARRA SUPERIORE CON "-" E "X"
+-- BARRA SUPERIORE
 local topBar = Instance.new("Frame", main)
-topBar.Size = UDim2.new(1, 0, 0, 40)
+topBar.Size = UDim2.new(1, 0, 0, 30)
 topBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Instance.new("UICorner", topBar).CornerRadius = UDim.new(0, 12)
 
-local topBarStroke = Instance.new("UIStroke", topBar)
-topBarStroke.Color = Color3.fromRGB(255, 255, 255)
-topBarStroke.Thickness = 2
-
 local title = Instance.new("TextLabel", topBar)
-title.Size = UDim2.new(0.7, 0, 1, 0)
+title.Size = UDim2.new(0.65, 0, 1, 0)
 title.Position = UDim2.new(0, 10, 0, 0)
 title.Text = "Vincent Hub"
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Font = Enum.Font.GothamBold
-title.TextSize = 20
+title.TextSize = 18
 title.BackgroundTransparency = 1
 
 -- PULSANTE "-"
 local minimize = Instance.new("TextButton", topBar)
-minimize.Size = UDim2.new(0, 40, 0, 40)
-minimize.Position = UDim2.new(0.78, 0, 0, 0)
+minimize.Size = UDim2.new(0, 30, 0, 30)
+minimize.Position = UDim2.new(0.75, 0, 0, 0)
 minimize.Text = "-"
 minimize.TextColor3 = Color3.fromRGB(255, 255, 255)
 minimize.Font = Enum.Font.GothamBold
-minimize.TextSize = 28
+minimize.TextSize = 22
 minimize.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-Instance.new("UICorner", minimize).CornerRadius = UDim.new(0, 10)
+Instance.new("UICorner", minimize).CornerRadius = UDim.new(0, 8)
 
--- PULSANTE "X" (SOLO ESTETICO)
+-- PULSANTE "X" (ESTETICO)
 local closeBtn = Instance.new("TextButton", topBar)
-closeBtn.Size = UDim2.new(0, 40, 0, 40)
-closeBtn.Position = UDim2.new(0.88, 0, 0, 0)
+closeBtn.Size = UDim2.new(0, 30, 0, 30)
+closeBtn.Position = UDim2.new(0.85, 0, 0, 0)
 closeBtn.Text = "X"
 closeBtn.TextColor3 = Color3.fromRGB(255, 80, 80)
 closeBtn.Font = Enum.Font.GothamBold
-closeBtn.TextSize = 28
+closeBtn.TextSize = 22
 closeBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 10)
+Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 8)
 
--- MINIMIZZA IL MENU (COMPATTA IN UNA RIGA)
+-- MINIMIZZAZIONE
 local minimized = false
 minimize.MouseButton1Click:Connect(function()
     minimized = not minimized
     if minimized then
-        main.Size = UDim2.new(0, 500, 0, 40)
+        main.Size = UDim2.new(0, 300, 0, 30)
     else
-        main.Size = UDim2.new(0, 500, 0, 400)
+        main.Size = UDim2.new(0, 300, 0, 250)
     end
 end)
 
--- CHIUSURA ESTETICA (NASCONDE SOLO IL MENU)
+-- CHIUSURA ESTETICA
 closeBtn.MouseButton1Click:Connect(function()
     main.Visible = false
 end)
 
--- SIDEBAR SINISTRA
+-- SIDEBAR RIDOTTA
 local sidebar = Instance.new("Frame", main)
-sidebar.Size = UDim2.new(0, 140, 1, -40)
-sidebar.Position = UDim2.new(0, 0, 0, 40)
+sidebar.Size = UDim2.new(0, 100, 1, -30)
+sidebar.Position = UDim2.new(0, 0, 0, 30)
 sidebar.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 Instance.new("UICorner", sidebar).CornerRadius = UDim.new(0, 12)
 
@@ -144,10 +142,10 @@ featuresBtn.Font = Enum.Font.GothamBold
 featuresBtn.TextSize = 18
 Instance.new("UICorner", featuresBtn).CornerRadius = UDim.new(0, 10)
 
--- PAGINA FEATURES
+-- PAGINA FEATURES RIDOTTA
 local page = Instance.new("Frame", main)
-page.Size = UDim2.new(1, -140, 1, -40)
-page.Position = UDim2.new(0, 140, 0, 40)
+page.Size = UDim2.new(1, -100, 1, -30)
+page.Position = UDim2.new(0, 100, 0, 30)
 page.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
 Instance.new("UICorner", page).CornerRadius = UDim.new(0, 12)
 
@@ -159,26 +157,9 @@ featuresBtn.MouseButton1Click:Connect(function()
     page.Visible = true
 end)
 
--- TITOLO PAGINA
-local titleMain = Instance.new("TextLabel", page)
-titleMain.Size = UDim2.new(1, 0, 0, 40)
-titleMain.Position = UDim2.new(0, 0, 0, 0)
-titleMain.Text = "Vincent Hub"
-titleMain.TextColor3 = Color3.fromRGB(255, 255, 255)
-titleMain.Font = Enum.Font.GothamBold
-titleMain.TextSize = 22
-titleMain.BackgroundTransparency = 1
-
-local titleSub = Instance.new("TextLabel", page)
-titleSub.Size = UDim2.new(1, 0, 0, 30)
-titleSub.Position = UDim2.new(0, 0, 0, 35)
-titleSub.Text = "Features"
-titleSub.TextColor3 = Color3.fromRGB(200, 200, 200)
-titleSub.Font = Enum.Font.Gotham
-titleSub.TextSize = 18
-titleSub.BackgroundTransparency = 1
-
--- FUNZIONE INPUT + TOGGLE (textbar in mezzo)
+--------------------------------------------------------------------
+-- FUNZIONE INPUT + TOGGLE
+--------------------------------------------------------------------
 local function makeInputToggle(name, posY)
     local frame = Instance.new("Frame", page)
     frame.Size = UDim2.new(1, -20, 0, 50)
@@ -216,9 +197,9 @@ local function makeInputToggle(name, posY)
     return box, toggle
 end
 
----------------------------------------------------------
+--------------------------------------------------------------------
 -- FEATURES
----------------------------------------------------------
+--------------------------------------------------------------------
 
 -- SPEED
 local speedBox, speedToggle = makeInputToggle("Speed", 80)
@@ -337,10 +318,9 @@ player.Idled:Connect(function()
     end
 end)
 
----------------------------------------------------------
+--------------------------------------------------------------------
 -- AUTO-REAPPLY FEATURES DOPO RESPAWN
----------------------------------------------------------
-
+--------------------------------------------------------------------
 player.CharacterAdded:Connect(function(newChar)
     char = newChar
     hum = newChar:WaitForChild("Humanoid")
